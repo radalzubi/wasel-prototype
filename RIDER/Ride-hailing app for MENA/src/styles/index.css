@@ -1,0 +1,241 @@
+@import './fonts.css';
+@import './tailwind.css';
+@import './theme.css';
+
+/* ── Wasel Design Tokens (global defaults — dark mode) ──────────── */
+:root {
+  --wasel-safe-top: env(safe-area-inset-top, 0px);
+  --wasel-safe-bottom: env(safe-area-inset-bottom, 0px);
+  --wasel-safe-left: env(safe-area-inset-left, 0px);
+  --wasel-safe-right: env(safe-area-inset-right, 0px);
+
+  /* Core palette */
+  --bg-deep:        #000000;
+  --bg-surface:     #111111;
+  --bg-elevated:    #1A1A1A;
+  --gold:           #D4A843;
+  --gold-bright:    #E8C060;
+  --gold-dim:       rgba(212,168,67,0.12);
+  --gold-border:    rgba(212,168,67,0.25);
+
+  /* Text */
+  --text-primary:   rgba(255,255,255,0.93);
+  --text-secondary: rgba(255,255,255,0.52);
+  --text-muted:     rgba(255,255,255,0.28);
+
+  /* Glass */
+  --glass-bg:       rgba(0,0,0,0.90);
+  --glass-border:   rgba(255,255,255,0.09);
+  --glass-elevated: rgba(17,17,17,0.97);
+
+  /* Status */
+  --success:        #34D399;
+  --danger:         #F87171;
+  --info:           #A0A0A0;
+
+  /* Legacy compat */
+  --wasel-gold: #D4A843;
+}
+
+/* ── Global reset ─────────────────────────────────────────────────── */
+* {
+  -webkit-tap-highlight-color: transparent;
+  box-sizing: border-box;
+}
+
+body {
+  overscroll-behavior: none;
+  background: #000000;
+  font-family: 'Sora', sans-serif;
+}
+
+html, body, #root {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+}
+
+.wasel-safe-top {
+  padding-top: calc(var(--wasel-safe-top, 0px) + 12px) !important;
+}
+
+.wasel-safe-top-lg {
+  padding-top: calc(var(--wasel-safe-top, 0px) + 16px) !important;
+}
+
+.wasel-scroll-pad {
+  padding-bottom: calc(88px + var(--wasel-safe-bottom, 0px)) !important;
+}
+
+/* ── Scrollbar suppression ────────────────────────────────────────── */
+::-webkit-scrollbar { display: none; }
+* { scrollbar-width: none; }
+
+/* ── Typography helpers ───────────────────────────────────────────── */
+.font-sora  { font-family: 'Sora', sans-serif; }
+.font-cairo { font-family: 'Cairo', sans-serif; }
+
+/* ── Glass sheet ──────────────────────────────────────────────────── */
+.glass-sheet {
+  background: var(--glass-bg, rgba(0,0,0,0.90));
+  backdrop-filter: blur(32px) saturate(160%);
+  -webkit-backdrop-filter: blur(32px) saturate(160%);
+  border-top: 1px solid var(--glass-border);
+  box-shadow: 0 -20px 60px rgba(0,0,0,0.5), 0 -1px 0 rgba(255,255,255,0.04);
+}
+
+.glass-card {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.07);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+/* ── Gold glow button ─────────────────────────────────────────────── */
+.btn-gold {
+  background: linear-gradient(135deg, #D4A843 0%, #E8C060 50%, #D4A843 100%);
+  background-size: 200% 200%;
+  color: #0B1526;
+  font-weight: 700;
+  box-shadow: 0 4px 24px rgba(212,168,67,0.35), 0 1px 0 rgba(255,255,255,0.15) inset;
+  transition: all 0.2s;
+}
+.btn-gold:active {
+  transform: scale(0.97);
+  box-shadow: 0 2px 12px rgba(212,168,67,0.25);
+}
+
+.btn-navy {
+  background: linear-gradient(135deg, #1B3A5C, #244d78);
+  color: rgba(255,255,255,0.93);
+  font-weight: 700;
+  box-shadow: 0 4px 20px rgba(27,58,92,0.5);
+  transition: all 0.2s;
+}
+.btn-navy:active { transform: scale(0.97); }
+
+/* ── Glow ring animation ──────────────────────────────────────────── */
+@keyframes glow-ring {
+  0%   { transform: scale(1);   opacity: 0.6; }
+  100% { transform: scale(2.2); opacity: 0; }
+}
+.glow-ring {
+  animation: glow-ring 1.8s cubic-bezier(0.4,0,0.6,1) infinite;
+}
+.glow-ring-delay {
+  animation: glow-ring 1.8s cubic-bezier(0.4,0,0.6,1) infinite 0.6s;
+}
+.glow-ring-delay2 {
+  animation: glow-ring 1.8s cubic-bezier(0.4,0,0.6,1) infinite 1.2s;
+}
+
+/* ── Shimmer animation ────────────────────────────────────────────── */
+@keyframes shimmer {
+  0%   { background-position: -200% 0; }
+  100% { background-position:  200% 0; }
+}
+.shimmer {
+  background: linear-gradient(90deg, transparent 0%, rgba(212,168,67,0.06) 50%, transparent 100%);
+  background-size: 200% 100%;
+  animation: shimmer 3s linear infinite;
+}
+
+/* ── Leaflet map (dark theme) ─────────────────────────────────────── */
+.leaflet-container {
+  z-index: 0;
+  font-family: 'Sora', sans-serif;
+  background: #060D1A;
+}
+.leaflet-pane   { z-index: 1; }
+.leaflet-control { z-index: 2; }
+.leaflet-tile-pane { filter: brightness(0.9) contrast(1.05) saturate(0.9); }
+
+/* ═══════════════════════════════════════════════
+   WASEL DUAL-THEME DESIGN TOKENS
+   ═══════════════════════════════════════════════ */
+
+/* ── LIGHT THEME — pure white, TripGlide-inspired ── */
+:root[data-theme="light"] {
+  --bg-primary:      #FFFFFF;
+  --bg-surface:      #FFFFFF;
+  --bg-card:         #FFFFFF;
+  --bg-sheet:        rgba(255,255,255,0.99);
+  --bg-input:        #F2F2F2;
+  --text-primary:    #111111;
+  --text-secondary:  #666666;
+  --text-tertiary:   #AAAAAA;
+  --accent:          #C49B2E;
+  --accent-subtle:   rgba(196,155,46,0.10);
+  --accent-text:     #7A5F1A;
+  --border:          rgba(0,0,0,0.08);
+  --border-strong:   rgba(0,0,0,0.16);
+  --shadow-sm:       0 2px 8px rgba(0,0,0,0.06);
+  --shadow-md:       0 4px 20px rgba(0,0,0,0.08);
+  --shadow-lg:       0 8px 40px rgba(0,0,0,0.10);
+  --nav-bg:          rgba(255,255,255,0.97);
+  --nav-blur:        blur(20px);
+  --chip-active-bg:  #111111;
+  --chip-active-text:#FFFFFF;
+  --chip-bg:         rgba(0,0,0,0.05);
+  --pill-active:     #D4A843;
+  --divider:         rgba(0,0,0,0.06);
+}
+
+/* ── DARK THEME — pure black ─────────────────── */
+:root[data-theme="dark"] {
+  --bg-primary:      #000000;
+  --bg-surface:      #0E0E0E;
+  --bg-card:         #181818;
+  --bg-sheet:        rgba(0,0,0,0.97);
+  --bg-input:        rgba(255,255,255,0.08);
+  --text-primary:    rgba(255,255,255,0.92);
+  --text-secondary:  rgba(255,255,255,0.50);
+  --text-tertiary:   rgba(255,255,255,0.28);
+  --accent:          #D4A843;
+  --accent-subtle:   rgba(212,168,67,0.12);
+  --accent-text:     #D4A843;
+  --border:          rgba(255,255,255,0.09);
+  --border-strong:   rgba(255,255,255,0.18);
+  --shadow-sm:       0 2px 8px rgba(0,0,0,0.5);
+  --shadow-md:       0 4px 24px rgba(0,0,0,0.7);
+  --shadow-lg:       0 8px 60px rgba(0,0,0,0.9);
+  --nav-bg:          rgba(0,0,0,0.97);
+  --nav-blur:        blur(32px);
+  --chip-active-bg:  #D4A843;
+  --chip-active-text:#111111;
+  --chip-bg:         rgba(255,255,255,0.08);
+  --pill-active:     #D4A843;
+  --divider:         rgba(255,255,255,0.06);
+}
+
+/* Default (dark) if no data-theme set */
+:root:not([data-theme]) {
+  --bg-primary:      #000000;
+  --bg-surface:      #0E0E0E;
+  --bg-card:         #181818;
+  --bg-sheet:        rgba(0,0,0,0.97);
+  --bg-input:        rgba(255,255,255,0.08);
+  --text-primary:    rgba(255,255,255,0.92);
+  --text-secondary:  rgba(255,255,255,0.50);
+  --text-tertiary:   rgba(255,255,255,0.28);
+  --accent:          #D4A843;
+  --accent-subtle:   rgba(212,168,67,0.12);
+  --accent-text:     #D4A843;
+  --border:          rgba(255,255,255,0.09);
+  --border-strong:   rgba(255,255,255,0.18);
+  --shadow-sm:       0 2px 8px rgba(0,0,0,0.5);
+  --shadow-md:       0 4px 24px rgba(0,0,0,0.7);
+  --shadow-lg:       0 8px 60px rgba(0,0,0,0.9);
+  --nav-bg:          rgba(0,0,0,0.97);
+  --nav-blur:        blur(32px);
+  --chip-active-bg:  #D4A843;
+  --chip-active-text:#111111;
+  --chip-bg:         rgba(255,255,255,0.08);
+  --pill-active:     #D4A843;
+  --divider:         rgba(255,255,255,0.06);
+}
+
+/* Smooth theme transition on all elements */
+*, *::before, *::after {
+  transition: background-color 0.25s ease, border-color 0.25s ease, color 0.15s ease;
+}

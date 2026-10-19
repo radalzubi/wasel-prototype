@@ -1,0 +1,11 @@
+{
+  "name": "wasel-platform",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Wasel — Two-sided ride-hailing platform for MENA",
+  "scripts": {
+    "rider": "npm --prefix 'RIDER/Ride-hailing app for MENA' run dev",
+    "driver": "npm --prefix driver_app run dev",
+    "backend": "npm --prefix backend run dev"
+  }
+}

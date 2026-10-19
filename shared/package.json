@@ -1,0 +1,8 @@
+{
+  "name": "@wasel/shared",
+  "version": "0.1.0",
+  "description": "Shared types and utilities for the Wasel platform",
+  "main": "src/types/index.ts",
+  "types": "src/types/index.ts",
+  "private": true
+}
