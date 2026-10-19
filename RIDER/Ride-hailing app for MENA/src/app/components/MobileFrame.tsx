@@ -99,7 +99,7 @@ export function MobileFrame({ children, isRTL }: MobileFrameProps) {
                 '0 40px 80px rgba(0,0,0,0.15)',
                 '0 10px 40px rgba(0,0,0,0.1)',
               ].join(', '),
-        }}
+        } as React.CSSProperties}
       >
         {/* Phone edge shine */}
         <div style={{

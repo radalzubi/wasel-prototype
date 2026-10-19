@@ -4,10 +4,11 @@
   "version": "0.0.1",
   "type": "module",
   "scripts": {
-    "build": "vite build",
+    "build": "tsc --noEmit && vite build",
     "dev": "vite",
-    "build:ios": "vite build && npx cap sync ios",
-    "open:ios": "npx cap open ios"
+    "build:ios": "tsc --noEmit && vite build && npx cap sync ios",
+    "open:ios": "npx cap open ios",
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "@capacitor/android": "^8.2.0",

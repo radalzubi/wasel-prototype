@@ -5,7 +5,7 @@ import {
   Navigation, Clock, AlertTriangle, CheckCircle,
   Car, Zap, ArrowLeft, Home, Briefcase, Heart, ChevronDown,
 } from 'lucide-react';
-import { motion, AnimatePresence } from 'motion/react';
+import { motion, AnimatePresence, type Variants } from 'motion/react';
 import { useLanguage } from '../context/LanguageContext';
 import { useTheme } from '../context/ThemeContext';
 import { useAuth } from '../context/AuthContext';
@@ -605,8 +605,10 @@ export function HomeScreen({ onRideHere, pendingDestination, onPendingConsumed }
 
   useEffect(() => {
     if (!activeTripId || !supabase || !session) return;
+    // Keep the narrowed client for the cleanup closure below.
+    const client = supabase;
 
-    const tripChannel = supabase
+    const tripChannel = client
       .channel(`rider-trip-${activeTripId}`)
       .on('postgres_changes', {
         event: 'UPDATE',
@@ -619,7 +621,7 @@ export function HomeScreen({ onRideHere, pendingDestination, onPendingConsumed }
       })
       .subscribe();
 
-    const locChannel = supabase
+    const locChannel = client
       .channel(`rider-driver-loc-${activeTripId}`)
       .on('postgres_changes', {
         event: 'INSERT',
@@ -637,8 +639,8 @@ export function HomeScreen({ onRideHere, pendingDestination, onPendingConsumed }
       .subscribe();
 
     return () => {
-      supabase.removeChannel(tripChannel);
-      supabase.removeChannel(locChannel);
+      client.removeChannel(tripChannel);
+      client.removeChannel(locChannel);
     };
   }, [activeTripId, session, hydrateAssignedDriver, applyTripStatus]);
 
@@ -686,7 +688,7 @@ export function HomeScreen({ onRideHere, pendingDestination, onPendingConsumed }
     return t('goodEvening');
   };
 
-  const bottomSheetVariants = {
+  const bottomSheetVariants: Variants = {
     hidden: { y: '100%', opacity: 0 },
     visible: { y: 0, opacity: 1, transition: { type: 'spring', damping: 28, stiffness: 300 } },
     exit: { y: '100%', opacity: 0, transition: { duration: 0.2 } },
