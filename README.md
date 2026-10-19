@@ -99,6 +99,10 @@ npm --prefix "RIDER/Ride-hailing app for MENA" install && npm run rider   # ride
 
 Health check: `curl http://localhost:3001/health`
 
+CI (`.github/workflows/ci.yml`) runs `npm ci` and `npm run build` for the
+backend (tsc), the driver app (tsc + Vite) and the rider app (Vite) on every
+push to `main` and every pull request.
+
 ### End-to-end flow test
 
 `backend/tests/flow.js` drives the full ride (request → offer → accept → every
