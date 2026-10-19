@@ -4,7 +4,7 @@ import {
   Car, Bell, HelpCircle, LogOut, ChevronRight, Star, Edit2,
   Home, Briefcase, Plus, Check, Phone, Mail, Moon,
 } from 'lucide-react';
-import { motion, AnimatePresence } from 'motion/react';
+import { motion, AnimatePresence, type Variants } from 'motion/react';
 import { useLanguage } from '../context/LanguageContext';
 import { useTheme } from '../context/ThemeContext';
 import { useAuth } from '../context/AuthContext';
@@ -42,7 +42,7 @@ export function SettingsScreen({ onLogout }: Props) {
     setProfileEmail(session?.email || '');
   }, [session?.email, session?.name, session?.phone]);
 
-  const slideIn = {
+  const slideIn: Variants = {
     hidden: { x: isRTL ? -300 : 300, opacity: 0 },
     visible: { x: 0, opacity: 1, transition: { type: 'spring', damping: 28, stiffness: 300 } },
     exit: { x: isRTL ? -300 : 300, opacity: 0, transition: { duration: 0.2 } },
